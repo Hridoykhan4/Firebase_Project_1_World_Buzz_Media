@@ -60,7 +60,7 @@ const NewsCard = ({ news }) => {
         {/* Rating */}
         <div className="flex items-center gap-1 text-orange-500 text-sm">
           {Array.from({ length: 5 }, (_, i) => (
-            <FaStar
+            <FaStar key={i}
               className={
                 i < Math.floor(rating.number)
                   ? "text-orange-500"
