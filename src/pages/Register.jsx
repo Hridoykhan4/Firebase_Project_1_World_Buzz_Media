@@ -1,7 +1,14 @@
-import { useEffect, useRef } from "react";
-import { Link } from "react-router-dom";
+import { useContext, useEffect, useRef, useState } from "react";
+import { Link, useNavigate } from "react-router-dom";
+import AuthContext from "../Contexts/AuthContext";
 
 const Register = () => {
+  const { createNewUser, updateUserProfile } = useContext(AuthContext);
+
+  const [error, setError] = useState({});
+
+  const nav = useNavigate()
+
   const nameRef = useRef();
 
   useEffect(() => {
@@ -10,6 +17,29 @@ const Register = () => {
 
   const handleRegister = (e) => {
     e.preventDefault();
+    const form = new FormData(e.target);
+    const name = form.get("name");
+    const photo = form.get("photo");
+
+    if (name.length < 5) {
+      return setError({ ...error, name: "must be more than 5 letters" });
+    }
+
+    const email = form.get("email");
+    const password = form.get("password");
+    createNewUser(email, password)
+      .then((result) => {
+        console.log(result.user);
+        updateUserProfile({ displayName: name, photoURL: photo })
+          .then(() => {
+            console.log('Profile Updated');
+            nav(`/`)
+          })
+          .catch((err) => {
+            console.log(err.message)
+          })
+      })
+      .catch((err) => console.log(err.message));
   };
 
   return (
@@ -32,6 +62,12 @@ const Register = () => {
               className="w-full px-4 py-3 border border-gray-200 rounded-md text-sm focus:outline-none focus:ring-2 focus:ring-gray-300"
             />
           </div>
+
+          {error.name && (
+            <label className="block label text-sm font-semibold text-red-600 mb-1">
+              {error.name}
+            </label>
+          )}
 
           <div>
             <label htmlFor="photo" className="block text-sm font-semibold mb-1">
@@ -88,7 +124,7 @@ const Register = () => {
 
           <button
             type="submit"
-            className="w-full bg-neutral text-white py-3 rounded-md font-semibold hover:bg-black transition"
+            className="w-full btn bg-neutral text-white py-3 rounded-md font-semibold hover:bg-black transition"
           >
             Register
           </button>

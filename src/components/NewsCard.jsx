@@ -46,7 +46,10 @@ const NewsCard = ({ news }) => {
         {details.length > 200 ? (
           <>
             {details.slice(0, 200)}...
-            <Link to="/news" className="text-[#D72050] font-medium ml-1">
+            <Link
+              to={`/news/${news._id}`}
+              className="text-[#D72050] font-medium ml-1"
+            >
               Read More
             </Link>
           </>
@@ -60,7 +63,8 @@ const NewsCard = ({ news }) => {
         {/* Rating */}
         <div className="flex items-center gap-1 text-orange-500 text-sm">
           {Array.from({ length: 5 }, (_, i) => (
-            <FaStar key={i}
+            <FaStar
+              key={i}
               className={
                 i < Math.floor(rating.number)
                   ? "text-orange-500"
