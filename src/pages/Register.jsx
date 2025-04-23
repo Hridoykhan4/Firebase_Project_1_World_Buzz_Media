@@ -3,11 +3,11 @@ import { Link, useNavigate } from "react-router-dom";
 import AuthContext from "../Contexts/AuthContext";
 
 const Register = () => {
-  const { createNewUser, updateUserProfile } = useContext(AuthContext);
+  const { createNewUser, updateUserProfile, setUser } = useContext(AuthContext);
 
   const [error, setError] = useState({});
 
-  const nav = useNavigate()
+  const nav = useNavigate();
 
   const nameRef = useRef();
 
@@ -29,15 +29,15 @@ const Register = () => {
     const password = form.get("password");
     createNewUser(email, password)
       .then((result) => {
-        console.log(result.user);
+        setUser(result.user);
         updateUserProfile({ displayName: name, photoURL: photo })
           .then(() => {
-            console.log('Profile Updated');
-            nav(`/`)
+            console.log("Profile Updated");
+            nav(`/`);
           })
           .catch((err) => {
-            console.log(err.message)
-          })
+            console.log(err.message);
+          });
       })
       .catch((err) => console.log(err.message));
   };
@@ -57,6 +57,7 @@ const Register = () => {
               id="name"
               ref={nameRef}
               name="name"
+              required
               type="text"
               placeholder="Enter your name"
               className="w-full px-4 py-3 border border-gray-200 rounded-md text-sm focus:outline-none focus:ring-2 focus:ring-gray-300"
@@ -76,6 +77,7 @@ const Register = () => {
             <input
               id="photo"
               name="photo"
+              required
               type="text"
               placeholder="Enter your photo URL"
               className="w-full px-4 py-3 border border-gray-200 rounded-md text-sm focus:outline-none focus:ring-2 focus:ring-gray-300"

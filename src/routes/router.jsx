@@ -6,6 +6,8 @@ import Login from "../pages/Login";
 import Register from "../pages/Register";
 import NewsDetails from "../pages/NewsDetails";
 import PrivateRoute from "./PrivateRoute";
+import About from "../layouts/About";
+import Carrier from "../layouts/Carrier";
 
 const router = createBrowserRouter([
   {
@@ -16,6 +18,7 @@ const router = createBrowserRouter([
         path: "",
         element: <Navigate to="/category/01"></Navigate>,
       },
+
       {
         path: "/category/:catId",
         element: <CategoryNews></CategoryNews>,
@@ -49,6 +52,14 @@ const router = createBrowserRouter([
         element: <Register />,
       },
     ],
+  },
+  {
+    path: "/about",
+    element: <About></About>,
+  },
+  {
+    path: "/carrier",
+    element: <Carrier></Carrier>,
   },
   {
     path: "*",

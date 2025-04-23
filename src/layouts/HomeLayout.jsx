@@ -5,6 +5,7 @@ import LeftNavbar from "../components/layout-component/LeftNavbar";
 import RightNav from "../components/layout-component/RightNav";
 import Navbar from "../components/Navbar";
 import logo from '../assets/logo3rd.jpg'
+import Footer from "../components/Footer";
 const HomeLayout = () => {
   const navigation = useNavigation();
 
@@ -40,6 +41,9 @@ const HomeLayout = () => {
           <RightNav />
         </aside>
       </main>
+      <>
+        <Footer></Footer>
+      </>
     </div>
   );
 };

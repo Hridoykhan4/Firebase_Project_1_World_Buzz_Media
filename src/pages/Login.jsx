@@ -3,7 +3,7 @@ import { Link, useLocation, useNavigate } from "react-router-dom";
 import AuthContext from "../Contexts/AuthContext";
 
 const Login = () => {
-  const { loginUser } = useContext(AuthContext);
+  const { loginUser, setUser } = useContext(AuthContext);
   const [error, setError] = useState({});
   const nav = useNavigate();
 
@@ -16,7 +16,7 @@ const Login = () => {
     const password = form.password.value;
     loginUser(email, password)
       .then((result) => {
-        console.log(result.user);
+        setUser(result.user);
         nav(state ? state : "/");
       })
       .catch((err) => {
@@ -59,7 +59,9 @@ const Login = () => {
               className="w-full px-4 py-3 border border-gray-200 rounded-md text-sm focus:outline-none focus:ring-2 focus:ring-gray-300"
             />
           </div>
-          {error.login && <label className="label text-red-600">{error.login} !!!</label>}
+          {error.login && (
+            <label className="label text-red-600">{error.login} !!!</label>
+          )}
 
           <button
             type="submit"

@@ -1,20 +1,44 @@
-import { Link } from "react-router-dom";
+import { Link, NavLink } from "react-router-dom";
 import userIcon from "../assets/user.png";
 import { useContext } from "react";
 import AuthContext from "../Contexts/AuthContext";
 import { FaBars } from "react-icons/fa";
 const Navbar = () => {
   const { user, logOutUser } = useContext(AuthContext);
-
   return (
     <div className="flex items-center justify-between">
       <div>
-        {user ? (user.displayName ? user?.displayName : "") : user?.email}
+        {user
+          ? user.displayName
+            ? user?.displayName
+            : user?.email
+          : user?.email}
       </div>
       <div className="nav hidden sm:flex space-x-5">
-        <Link to="/">Home</Link>
-        <Link to="/about">About</Link>
-        <Link to="/career">Career</Link>
+        <NavLink
+          className={({ isActive }) =>
+            `${isActive && "underline text-red-700"}`
+          }
+          to="/"
+        >
+          Home
+        </NavLink>
+        <NavLink
+          className={({ isActive }) =>
+            `${isActive && "underline text-red-700"}`
+          }
+          to="/about"
+        >
+          About
+        </NavLink>
+        <NavLink
+          className={({ isActive }) =>
+            `${isActive && "underline text-red-700"}`
+          }
+          to="/carrier"
+        >
+          Carrier
+        </NavLink>
       </div>
       <div className="login flex gap-2 items-center">
         {user && (user?.email || user?.providerData[0].email) ? (
@@ -65,9 +89,30 @@ const Navbar = () => {
                 )}
               </li>
               <li>
-                <Link to="/">Home</Link>
-                <Link to="/about">About</Link>
-                <Link to="/career">Career</Link>
+                <NavLink
+                  className={({ isActive }) =>
+                    `${isActive && "underline text-red-700"}`
+                  }
+                  to="/"
+                >
+                  Home
+                </NavLink>
+                <NavLink
+                  className={({ isActive }) =>
+                    `${isActive && "underline text-red-700"}`
+                  }
+                  to="/about"
+                >
+                  About
+                </NavLink>
+                <NavLink
+                  className={({ isActive }) =>
+                    `${isActive && "underline text-red-700"}`
+                  }
+                  to="/carrier"
+                >
+                  Carrier
+                </NavLink>
               </li>
             </ul>
           </div>
